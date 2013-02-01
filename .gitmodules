@@ -1,0 +1,9 @@
+[submodule "stdlib"]
+	path = stdlib
+	url = http://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "firewall"]
+	path = firewall
+	url = http://github.com/puppetlabs/puppetlabs-firewall.git
+[submodule "postgresql"]
+	path = postgresql
+	url = http://github.com/puppetlabs/puppet-postgresql.git
