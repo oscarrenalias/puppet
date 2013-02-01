@@ -8,7 +8,12 @@ class base {
   
   # this is not available in OS X
   case $operatingsystem {
-    /(Ubuntu|Debian|CentOS|RedHat)/: {
+    "Ubuntu": {
+      package { "emacs24-nox":
+        ensure => "present",
+      }
+    }
+    /(CentOS|RedHat)/: {
       package { "emacs-nox":
 	ensure => "present",
       }
