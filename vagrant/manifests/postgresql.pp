@@ -12,8 +12,8 @@ class vagrant::postgresql {
   }
   
   postgresql::db { "database":
-    user => "user",
-    password => "password",
+    user => "db_user",
+    password => "db_password",
     grant => [ "all" ],
   }
   
