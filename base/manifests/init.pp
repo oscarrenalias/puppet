@@ -4,11 +4,11 @@
 class base {
   package { "git":
     ensure => "present",
-  }	
+  }
   
   # this is not available in OS X
   case $operatingsystem {
-    /(Ubuntu|Debian|Centos|RedHat)/: {
+    /(Ubuntu|Debian|CentOS|RedHat)/: {
       package { "emacs-nox":
 	ensure => "present",
       }
