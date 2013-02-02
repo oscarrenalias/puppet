@@ -28,7 +28,5 @@ class base(
     "Darwin": { include base::darwin }
     default: { fail("Unsupported OS: $operatingsystem") }
   }
-
-  require chrome
 }
 
