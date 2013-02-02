@@ -19,13 +19,13 @@ class dropbox::ubuntu inherits dropbox {
     unless => "grep dropbox /etc/apt/sources.list",
   }
 
-  exec { "apt-get-update":
+  exec { "dropbox-apt-get-update":
     command => "apt-get update",
     require => [Exec["add-dropbox-apt-key"], Exec["add-dropbox-apt-repo"]]
   }
 
-  package { "nautilus-dropbox":
+  package { "dropbox":
     ensure => "present",
-    require => Exec["apt-get-update"],
+    require => Exec["dropbox-apt-get-update"],
   }
 }  
