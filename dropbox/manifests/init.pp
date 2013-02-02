@@ -15,17 +15,13 @@ class dropbox::ubuntu inherits dropbox {
 
   exec { "add-dropbox-apt-repo":
     # Even in 12.10 we have to use precise (12.04) instead of quatzal
-    command => "add-apt-repository \"deb http://linux.dropbox.com/ubuntu precise main\"",
+    command => "add-apt-repository \"deb http://linux.dropbox.com/ubuntu precise main\" && apt-get update",
     unless => "grep dropbox /etc/apt/sources.list",
-  }
-
-  exec { "dropbox-apt-get-update":
-    command => "apt-get update",
-    require => [Exec["add-dropbox-apt-key"], Exec["add-dropbox-apt-repo"]]
+    require => Exec["add-dropbox-apt-key"],    
   }
 
   package { "dropbox":
     ensure => "present",
-    require => Exec["dropbox-apt-get-update"],
+    require => Exec["add-dropbox-apt-repo"],
   }
 }  
