@@ -8,4 +8,8 @@ require base
 require chrome
 require encfs
 require dropbox
-require java
+
+class { 'java':
+  enable_browser_plugin => true,
+  install_dev_tools => true,
+}
