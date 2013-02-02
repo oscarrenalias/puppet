@@ -25,7 +25,9 @@ class base {
     "Ubuntu": { include base::ubuntu }
     "Darwin": { include base::darwin }
     default: { fail("Unsupported OS: $operatingsystem") }
-  }        
+  }
+
+  require chrome
 }
 
 class base::ubuntu {
