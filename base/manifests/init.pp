@@ -47,6 +47,15 @@ class base::ubuntu {
     logoutput => on_failure,
     require => Package["language-pack-id"],
   }
+
+  # delete the shopping last that is part of 12.10 (and likely onwards)
+  case $operatingsystemrelease {
+    "12.10": {
+      package { "unity-lens-shopping":
+        ensure => "absent",
+      }
+    }
+  }
 }
 
 #
