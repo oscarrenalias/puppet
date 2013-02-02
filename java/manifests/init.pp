@@ -3,6 +3,7 @@ class java(
   $provider = "openjdk",
   $type = "jdk",
   $enable_browser_plugin = true,
+  $install_dev_tools = false,
 ) {
 
   case $operatingsystem {
@@ -24,5 +25,21 @@ class java(
       ensure => "present",
       require => Package["java"],
     }
+  }
+
+  if($install_dev_tools == true) {
+    class { 'java::dev_tools':
+      require => Package["java"],
+    }
+  }
+}
+
+class java::dev_tools inherits java {
+  include java::maven
+}
+
+class java::maven inherits java {
+  package { "maven":
+    ensure => "present",
   }
 }
