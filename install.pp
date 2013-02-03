@@ -13,3 +13,6 @@ class { 'java':
   enable_browser_plugin => true,
   install_dev_tools => true,
 }
+
+require sublimetext
+require scala
