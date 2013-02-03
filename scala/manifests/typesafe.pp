@@ -1,11 +1,10 @@
-class scala {
+class scala::typesafe {
   case $operatingsystem {
     /(Ubuntu|Debian)/: {
       require scala::typesafe_repo::ubuntu
     }
     default: { fail("Operating system $operatingsystem not supported yet") }
   }
-
 }
 
 class scala::typesafe_repo::ubuntu {
