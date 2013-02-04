@@ -16,3 +16,4 @@ class { 'java':
 
 require sublimetext
 require scala
+require grails
