@@ -13,8 +13,8 @@ class java(
     }
     /(RedHat|CentOS|Fedora)/: {
       $package = $type ? {
-        "jdk" => "$provider-$version-$type",
-        default => "$provider-$version",
+        "jdk" => "java-$version-$provider-devel",
+        default => "java-$version-$provider",
       }
       $browser_plugin_package = "icedtea-web"
     }
