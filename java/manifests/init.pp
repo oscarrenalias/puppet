@@ -8,8 +8,15 @@ class java(
 
   case $operatingsystem {
     /(Ubuntu|Debian)/: {
-      $package = "$provider-$version-$type"
+      $package = "java-$version-$type"
       $browser_plugin_package = "icedtea-$version-plugin"
+    }
+    /(RedHat|CentOS|Fedora)/: {
+      $package = $type ? {
+        "jdk" => "$provider-$version-$type",
+        default => "$provider-$version",
+      }
+      $browser_plugin_package = "icedtea-web"
     }
     default: { fail("Operating system $operatingsystem not supported yet") }
   }
@@ -39,7 +46,15 @@ class java::dev_tools inherits java {
 }
 
 class java::maven inherits java {
-  package { "maven":
-    ensure => "present",
+  case $operatingsystem {
+    /(Ubuntu|Debian)/: {
+      package { "maven":
+        ensure => "present",
+      }
+    }
+    default: {
+      notice("$operatingsystem currently not supported")
+    }
   }
+
 }
