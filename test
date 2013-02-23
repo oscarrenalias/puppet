@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$1" == "all" ]; then
+   rake test_all
+else
+   rake test_module[$1]
+fi

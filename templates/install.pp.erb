@@ -1,0 +1,6 @@
+class <%= name %>::install inherits <%= name %>
+{
+  package { $package_name:
+    ensure => $package_ensure,
+  }
+}

@@ -19,6 +19,8 @@ class jenkins_node::fonts {
 
 # Install the plugins that we need
 class jenkins_node::plugins {
+  jenkins::plugin { "dashboard-view": }
   jenkins::plugin { "build-pipeline-plugin": }
-  jenkins::plugin { "git": }  
+  jenkins::plugin { "git-client": }
+  jenkins::plugin { "git": }
 }
