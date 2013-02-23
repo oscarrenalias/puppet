@@ -1,6 +1,9 @@
 class jenkins_node {
   class { "jenkins_node::fonts": } ->
-  class { "jenkins": }
+  class { "jenkins": } ->
+  class { "jenkins_node::plugins":
+    notify => Class["jenkins::service"],
+  }
 }
 
 class jenkins_node::fonts {
@@ -12,4 +15,10 @@ class jenkins_node::fonts {
   package { $font_package:
     ensure => "installed"
   }
+}
+
+# Install the plugins that we need
+class jenkins_node::plugins {
+  jenkins::plugin { "build-pipeline-plugin": }
+  jenkins::plugin { "git": }  
 }
