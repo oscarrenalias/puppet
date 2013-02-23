@@ -1,28 +1,45 @@
-class java(
-  $version = "7",
-  $provider = "openjdk",
-  $type = "jdk",
-  $enable_browser_plugin = true,
-  $install_dev_tools = false,
-) {
+class java::params {
+  $version = $operatingsystem ? {
+   /(CentOS|RedHat|Fedora)/ => "1.7.0",
+   /(Debian|Ubuntu)/ => "7"
+  }
+  $provider = "openjdk"
+  $type = "jdk"
+  $enable_browser_plugin = true
+
+  $install_maven = false
+  $maven_version = "3.0.4"
 
   case $operatingsystem {
     /(Ubuntu|Debian)/: {
-      $package = "java-$version-$type"
+      $java_package = "java-$version-$type"
       $browser_plugin_package = "icedtea-$version-plugin"
+      $maven_package = "maven"
     }
     /(RedHat|CentOS|Fedora)/: {
-      $package = $type ? {
+      $java_package = $type ? {
         "jdk" => "java-$version-$provider-devel",
         default => "java-$version-$provider",
       }
       $browser_plugin_package = "icedtea-web"
+      # CentOS does not have an RPM package for Maven
+      $maven_package = undef
     }
     default: { fail("Operating system $operatingsystem not supported yet") }
   }
+}
+
+class java(
+  $version = $java::params::version,
+  $provider = $java::params::provider,
+  $type = $java::params::type,
+  $enable_browser_plugin = $java::params::enable_browser_plugin,
+  $install_maven = $java::params::install_maven,
+  $maven_version = $java::params::maven_version
+) inherits java::params {
 
   package { "java":
-    name => $package,
+    name => $java_package,
     ensure => "present",
   }
 
@@ -34,27 +51,13 @@ class java(
     }
   }
 
-  if($install_dev_tools == true) {
-    class { 'java::dev_tools':
-      require => Package["java"],
-    }
+  class { 'java::dev_tools':
+    require => Package["java"],
   }
 }
 
 class java::dev_tools inherits java {
-  include java::maven
-}
-
-class java::maven inherits java {
-  case $operatingsystem {
-    /(Ubuntu|Debian)/: {
-      package { "maven":
-        ensure => "present",
-      }
-    }
-    default: {
-      notice("$operatingsystem currently not supported")
-    }
+  if($install_maven == true) {
+    include java::maven
   }
-
 }
