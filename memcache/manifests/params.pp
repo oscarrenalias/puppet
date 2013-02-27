@@ -8,4 +8,7 @@ class memcache::params {
   $service_enable = true
   $service_ensure = "running"
   $service_manage = true
+
+  # default port - required by the firewall configuration
+  $port = "11211"
 }
