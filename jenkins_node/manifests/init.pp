@@ -3,6 +3,14 @@ class jenkins_node {
   class { "jenkins": } ->
   class { "jenkins_node::plugins":
     notify => Class["jenkins::service"],
+  } ->
+  class { "jenkins::tools": }
+}
+
+class jenkins::tools {
+  package { "rake":
+    provider => "gem",
+    ensure => "installed",
   }
 }
 
