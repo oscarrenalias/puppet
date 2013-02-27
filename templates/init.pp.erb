@@ -3,7 +3,7 @@ class <%= name %>(
   $service_name = $<%= name %>::params::service_name,
   $service_enable = $<%= name %>::params::service_enable,
   $service_ensure = $<%= name %>::params::service_ensure,
-  $service_manage = $<%= name %>::params::servie_manage,  
+  $service_manage = $<%= name %>::params::service_manage,  
 ) inherits <%= name %>::params
 {
   class { "<%= name %>::install": } ->
