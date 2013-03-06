@@ -7,6 +7,11 @@ class base(
   package { "git":
     ensure => "present",
   }
+
+  # useful for troubleshooting
+  package { "telnet":
+    ensure => "present",
+  }
   
   # this is not available in OS X
   case $operatingsystem {

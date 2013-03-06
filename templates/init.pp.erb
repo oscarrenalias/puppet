@@ -1,0 +1,21 @@
+class <%= name %>(
+  $package_name = $<%= name %>::params::package_name,
+  $service_name = $<%= name %>::params::service_name,
+  $service_enable = $<%= name %>::params::service_enable,
+  $service_ensure = $<%= name %>::params::service_ensure,
+  $service_manage = $<%= name %>::params::service_manage,  
+) inherits <%= name %>::params
+{
+  class { "<%= name %>::install": } ->
+  class { "<%= name %>::config": } ~>
+  class { "<%= name %>::service": } ->
+  Class["<%= name %>"]
+}
+
+#
+# Wrapper class for the Puppet dashboard with default values
+#
+class <%= name %>::node
+{
+  require <%= name %>
+}

@@ -1,0 +1,11 @@
+class <%= name %>::params {
+  # Package configuration
+  $package_name = "<%= name %>"
+  $package_ensure = "installed"
+  
+  # Service configuration
+  $service_name = "<%= name %>"
+  $service_enable = true
+  $service_ensure = "running"
+  $service_manage = true
+}

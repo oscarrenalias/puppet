@@ -1,0 +1,9 @@
+class <%= name %>::service inherits <%= name %>
+{
+    if($service_manage) {
+      service { $service_name:
+        ensure => $service_ensure,
+        enable => $service_enable,
+      }
+    }
+}
