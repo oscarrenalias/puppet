@@ -20,6 +20,11 @@ class base(
         ensure => "present",
       }
     }
+    "Debian": {
+      package { "emacs23-nox":
+        ensure => "present",
+      }    
+    }   
     /(CentOS|RedHat)/: {
       package { "emacs-nox":
 	ensure => "present",
@@ -30,10 +35,9 @@ class base(
   case $operatingsystem {
     /(CentOS|RedHat)/: { include base::redhat }
     "Ubuntu": { include base::ubuntu }
+    "Debian": { include base::debian }
     "Darwin": { include base::darwin }
     default: { fail("Unsupported OS: $operatingsystem") }
   }
-
-  require dotfiles
 }
 

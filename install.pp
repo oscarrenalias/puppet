@@ -5,6 +5,7 @@
 #
 
 require base
+require dotfiles
 require chrome
 require encfs
 require dropbox
