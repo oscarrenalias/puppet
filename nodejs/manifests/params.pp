@@ -5,6 +5,8 @@ class nodejs::params {
   $architecture = "x64"
   # target folder where node should be installed
   $install_folder = "/usr/local"
+  # default firewall port to open
+  $default_port = "8081"
 
   # download link (do not modify)
   $download_link = "http://nodejs.org/dist/v$version/node-v$version-linux-$architecture.tar.gz"
