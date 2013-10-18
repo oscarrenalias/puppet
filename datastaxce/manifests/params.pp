@@ -3,7 +3,20 @@ class datastaxce::params {
 	$service_name = "cassandra"
 	$service_ensure = "running"
 
-	# listen address and RPC address; for development purposes, "0.0.0.0" is good enough
-	$listen_address = "0.0.0.0"
-	$rpc_address = "0.0.0.0"
+	# determine listen address, rpc address and seed nodes, or set to defaults
+	# if not provided.
+	$listen_address = $listen_address ? {
+		"" => "0.0.0.0",
+		default => $listen_address
+	}
+
+	$rpc_address = $rpc_address ? {
+		"" => "0.0.0.0",
+		default => $rpc_address
+	}
+
+	$seed_nodes = $seed_nodes ? {
+		"" => $listen_address,
+		default => $seed_nodes
+	}
 }
